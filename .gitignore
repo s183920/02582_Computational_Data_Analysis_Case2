@@ -132,3 +132,5 @@ dmypy.json
 data/original/*
 data/UTKFace/*
 data/UTKFace.tar.gz
+
+CDA-case-env/*
