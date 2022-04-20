@@ -129,4 +129,6 @@ dmypy.json
 .pyre/
 
 # data
-data/*
+data/original/*
+data/UTKFace/*
+data/UTKFace.tar.gz
