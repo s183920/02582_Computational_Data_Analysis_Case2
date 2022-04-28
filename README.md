@@ -41,12 +41,13 @@ Can we change the gender/race of a person?
 ### Spaces considered
 - [ ] Find latent space $\mathcal{S}_{AE}$ with auto encoder
 - [ ] Find gray scale space $\mathcal{S}_{gray}$ by simply grayscaling the images
-- [ ] Consider other latent spaces
+
 
 ### Clustering
 - [ ] Find clusters $\mathcal{C}_{AE}$ in latent space $\mathcal{S}_{AE}$ via k-means
 - [ ] Find clusters $\mathcal{C}_{gray}$ in gray scale space $\mathcal{S}_{gray}$ via k-means
 - [ ] Experiment with number of clusters and other cluster parameters
+- [ ] use gap-statistic or likewise to find optimal number of clusters
 
 ### Performance measures
 
@@ -60,3 +61,4 @@ Can we change the gender/race of a person?
 
 ### Additional (if time allows)
 - [ ] Visualize how latent features impact the clustering (e.g. by showing how a single image is mapped to different clusters for different values of the latent feature)
+- [ ] Consider other latent spaces
