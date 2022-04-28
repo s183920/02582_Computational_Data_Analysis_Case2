@@ -1,0 +1,24 @@
+{
+    "os": "Windows-10-10.0.19043-SP0",
+    "python": "3.8.10",
+    "heartbeatAt": "2022-04-25T12:38:10.321572",
+    "startedAt": "2022-04-25T12:38:07.311557",
+    "docker": null,
+    "gpu": "GeForce GTX 1050 Ti with Max-Q Design",
+    "gpu_count": 1,
+    "cpu_count": 8,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "c:/Users/peter/OneDrive - Danmarks Tekniske Universitet/DTU/8. Semester/02582-Computational_Data_Analysis/02582_Computational_Data_Analysis_Case2/autoencoder.py",
+    "codePath": "autoencoder.py",
+    "git": {
+        "remote": "https://github.com/s183920/02582_Computational_Data_Analysis_Case2.git",
+        "commit": "14c079344cf8c84d95883f77ee6bc4f15d799e45"
+    },
+    "email": "s183922@student.dtu.dk",
+    "root": "C:/Users/peter/OneDrive - Danmarks Tekniske Universitet/DTU/8. Semester/02582-Computational_Data_Analysis/02582_Computational_Data_Analysis_Case2",
+    "host": "LAPTOP-HPDR3QGP",
+    "username": "peter",
+    "executable": "C:\\Users\\peter\\OneDrive - Danmarks Tekniske Universitet\\DTU\\8. Semester\\02582-Computational_Data_Analysis\\env\\Scripts\\python.exe"
+}
