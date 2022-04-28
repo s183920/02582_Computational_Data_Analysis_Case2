@@ -10,33 +10,9 @@ from tqdm import tqdm
 from torch.optim.lr_scheduler import ExponentialLR
 class Encoder(nn.Module):
     
-    def __init__(self, encoded_space_dim, fc2_input_dim):
+    def __init__(self, encoded_space_dim):
         super().__init__()
         
-
-        ### Convolutional section
-        self.encoder_cnn = nn.Sequential(
-            nn.Conv2d(in_channels = 3, out_channels = 8, kernel_size = 15, stride=2, padding=2),
-            nn.ReLU(True),
-            nn.Conv2d(in_channels = 8, out_channels = 16, kernel_size = 15, stride=2, padding=2),
-            nn.BatchNorm2d(16),
-            nn.ReLU(True),
-            nn.Conv2d(in_channels = 16, out_channels = 32, kernel_size = 9, stride=2, padding=2),
-            nn.BatchNorm2d(32),
-            nn.ReLU(True),
-            nn.Conv2d(in_channels = 32, out_channels = 32, kernel_size = 7, stride=1, padding=1),
-            nn.ReLU(True),
-
-        )
-        
-        ### Flatten layer
-        self.flatten = nn.Flatten(start_dim=1)
-### Linear section
-        self.encoder_lin = nn.Sequential(
-            nn.Linear(16 * 16 * 32, encoded_space_dim),
-            nn.ReLU(True),
-        )
-
 
         ### Convolutional section
 
@@ -74,7 +50,7 @@ class Encoder(nn.Module):
 
 class Decoder(nn.Module):
     
-    def __init__(self, encoded_space_dim, fc2_input_dim):
+    def __init__(self, encoded_space_dim):
         super().__init__()
 
         self.decoder_lin = nn.Sequential(
@@ -177,18 +153,27 @@ class UTKFaceDataset(Dataset):
  
 if __name__ == '__main__':
     dim = 256
-    torch.manual_seed(1000)
+    # torch.manual_seed(1000)
 
-    datasets = UTKFaceDataset()
-    train_loader = DataLoader(datasets, batch_size=32, shuffle=True)
-    logger = wandb.init(project="autoencoder", name=f"AE {dim} TEST", entity='petergroenning')
+    dataset = UTKFaceDataset()
+    # train_loader = DataLoader(datasets, batch_size=32, shuffle=True)
+    # logger = wandb.init(project="autoencoder", name=f"AE {dim} TEST", entity='petergroenning')
+    encoder_weights = torch.load('models/encoder_256.pt', map_location=torch.device('cpu'))
+    decoder_weights = torch.load('models/decoder_256.pt', map_location=torch.device('cpu'))
+
+    encoder = Encoder(encoded_space_dim=dim)
+    decoder = Decoder(encoded_space_dim=dim)
+    encoder.load_state_dict(encoder_weights)
+    decoder.load_state_dict(decoder_weights)
+    encoder.eval()
+    decoder.eval()
+    print(dataset.X.shape)
     
-    encoder = Encoder(encoded_space_dim=dim, fc2_input_dim=512)
-    decoder = Decoder(encoded_space_dim=dim, fc2_input_dim=512)
-    torch.manual_seed(1000)
-    train(encoder, decoder, train_loader, device = 'cuda', logger = logger)
-    torch.save(encoder.state_dict(), f"encoder_{dim}.pth")
-    torch.save(decoder.state_dict(), f"decoder{dim}.pth")
+    # decoder = Decoder(encoded_space_dim=dim, fc2_input_dim=512)
+    # torch.manual_seed(1000)
+    # train(encoder, decoder, train_loader, device = 'cuda', logger = logger)
+    # torch.save(encoder.state_dict(), f"encoder_{dim}.pth")
+    # torch.save(decoder.state_dict(), f"decoder{dim}.pth")
     
 
   
