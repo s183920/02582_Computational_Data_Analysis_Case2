@@ -90,7 +90,7 @@ class Decoder(nn.Module):
         x = self.unflatten(x)
         x = self.decoder_conv(x)
         x = torch.sigmoid(x)
-
+        
         y = self.post_net(x)
         
         y = torch.sigmoid(x + y)
