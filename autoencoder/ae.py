@@ -46,6 +46,7 @@ class AutoEncoderNet(torch.nn.Module):
             nn.BatchNorm2d(16),
             nn.ReLU(),
             nn.ConvTranspose2d(16, n_channels, 5),
+            nn.Sigmoid()
         )
 
 

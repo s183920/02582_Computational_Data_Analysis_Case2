@@ -15,8 +15,33 @@ dotenv.load_dotenv()
 PROJECT_ROOT = Path(os.environ.get("PROJECT_ROOT"))
 
 
+class CustomFaceDataset(Dataset):
+    def __init__(self):
+        """
+        Create data loader for UTKFace dataset
+        """
+        self.data_dir = PROJECT_ROOT / 'data/custom/'
+
+        # split files and labels in train and test
+        all_files = os.listdir(self.data_dir)
+
+        self.data = [Image.open(self.data_dir / img) for img in all_files]
+        self.X = np.stack(self.data)
+        self.transforms = transforms.Compose([
+                                    transforms.ToPILImage(),
+                                    # transforms.Resize(255),
+                                    # transforms.CenterCrop(224),
+                                    transforms.ToTensor()])
+
+    def __len__(self):
+        return self.X.shape[0]
+    
+    def __getitem__(self, idx):
+        img = self.transforms(self.X[idx])
+        return img
+
 class UTKFaceDataset(Dataset):
-    def __init__(self, test_size = .2, data_type = "train"):
+    def __init__(self, test_size = .2, data_type = "train",gray_scale=True):
         """
         Create data loader for UTKFace dataset
         """
@@ -27,9 +52,13 @@ class UTKFaceDataset(Dataset):
         # split files and labels in train and test
         all_files = os.listdir(self.data_dir)
         train_files, test_files, train_labels, test_labels = train_test_split(all_files, self.df, test_size = test_size, random_state=1)
+        if gray_scale:
+            color_trns = lambda x: ImageOps.grayscale(x)
+        else:
+            color_trns = lambda x: x
 
         if data_type == "train":
-            self.data = [ImageOps.grayscale(Image.open(self.data_dir / img)) for img in train_files]
+            self.data = [color_trns(Image.open(self.data_dir / img)) for img in train_files]
             self.X = np.stack(self.data)
             self.y = train_labels[label_cols]
             self.transforms = transforms.Compose([
@@ -40,7 +69,7 @@ class UTKFaceDataset(Dataset):
                                     transforms.ToTensor()])
 
         elif data_type == "test":
-            self.data = [ImageOps.grayscale(Image.open(self.data_dir / img)) for img in test_files]
+            self.data = [color_trns(Image.open(self.data_dir / img)) for img in test_files]
             self.X = np.stack(self.data)
             self.y = test_labels[label_cols]
             self.transforms = transforms.Compose([
