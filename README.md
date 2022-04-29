@@ -1,4 +1,12 @@
+
 # 02582 Computational Data Analysis `Case 2`
+
+- [02582 Computational Data Analysis `Case 2`](#02582-computational-data-analysis-case-2)
+  - [Dimensionality Reduction](#dimensionality-reduction)
+  - [Cluster Analysis](#cluster-analysis)
+  - [Feature Analysis](#feature-analysis)
+  - [Tasks](#tasks)
+
 
 In this project an exploratory analysis of the UTKFaces dataset will be carried out using unsupervised learning.
 
@@ -25,3 +33,32 @@ The VAE aims to structure the latent space to be gaussian, making it possible to
 We will try to investigate which directions in the latent space describes, age, race or gender by decomposing the latent space using some method (PCA, NNMF, ICA ??) and investigate how the components are related to a specific character traits. 
 What do theses features look like in the real space (decoded)? What happens if we modify the observations in the latent space and decode them? 
 Can we change the gender/race of a person? 
+
+
+## Tasks
+
+
+### Spaces considered
+- [ ] Find latent space $\mathcal{S}_{AE}$ with auto encoder
+- [ ] Find gray scale space $\mathcal{S}_{gray}$ by simply grayscaling the images
+
+
+### Clustering
+- [ ] Find clusters $\mathcal{C}_{AE}$ in latent space $\mathcal{S}_{AE}$ via k-means
+- [ ] Find clusters $\mathcal{C}_{gray}$ in gray scale space $\mathcal{S}_{gray}$ via k-means
+- [ ] Experiment with number of clusters and other cluster parameters
+- [ ] use gap-statistic or likewise to find optimal number of clusters
+
+### Performance measures
+
+- [ ] Find performance measure $P$ to use for identifying purity of found clusters
+- [ ] Compare performance on spaces $\mathcal{S}_{AE}$ and $\mathcal{S}_{gray}$
+
+### Visualization
+- [ ] Visualize performance of AE, that is reconstruction image, train/test loss etc.
+- [ ] Visualize clusters in their space $\mathcal{S}_{AE}$ and $\mathcal{S}_{gray}$
+- [ ] Visualize purity of clusters in their spaces $\mathcal{S}_{AE}$ and $\mathcal{S}_{gray}$
+
+### Additional (if time allows)
+- [ ] Visualize how latent features impact the clustering (e.g. by showing how a single image is mapped to different clusters for different values of the latent feature)
+- [ ] Consider other latent spaces
